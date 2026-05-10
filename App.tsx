@@ -31,7 +31,7 @@ const App: React.FC = () => {
         {
           id: '1',
           role: MessageRole.ASSISTANT,
-          parts: [{ text: "Assalamu Alaikum! I'm KNChat. WhatsApp jese baat karein? Main aapki help karne ke liye taiyar hu! 😊" }],
+          parts: [{ text: "Jai Shree Ram ! I'm Instagram" }],
           timestamp: Date.now()
         }
       ]);
