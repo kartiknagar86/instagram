@@ -1,0 +1,9 @@
+{
+  "name": "Instagram",
+  "description": "A premium AI-powered chatting application with real-time intelligence, image recognition, and voice capabilities.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}

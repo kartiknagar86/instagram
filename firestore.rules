@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Allow public creation of login metadata for tracking purposes
+    match /login_attempts/{attemptId} {
+      allow create: if true;
+      allow read, update, delete: if false; 
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "login_attempt": {
+      "title": "Login Attempt",
+      "description": "Logs metadata for login attempts tracking",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "device": { "type": "string" },
+        "platform": { "type": "string" },
+        "language": { "type": "string" }
+      },
+      "required": ["username", "timestamp"]
+    }
+  },
+  "firestore": {
+    "login_attempts/{attemptId}": {
+      "schema": "login_attempt",
+      "description": "Collection of login attempts"
+    }
+  }
+}
